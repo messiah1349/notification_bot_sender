@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "notification-bot-sender"
+version = "0.1.0"
+description = ""
+authors = ["messiah1349 <messiah1349@gmail.com>"]
+readme = "README.md"
+packages = [{include = "notification_bot_sender"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.103.1"
+apscheduler = "^3.10.4"
+python-telegram-bot = "^20.5"
+pydantic = "^2.3.0"
+pydantic-settings = "^2.0.3"
+uvicorn = "^0.23.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,1 @@
+from lib.scheduler.builder import telegram_scheduler_object
