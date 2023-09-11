@@ -1,5 +1,5 @@
 from datetime import datetime
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from abc import ABC, abstractmethod
 import logging
 
@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 class TaskScheduler(ABC):
 
     def __init__(self):
-        self.schedule = BackgroundScheduler(daemon=True)
+        self.schedule = AsyncIOScheduler(daemon=True)
         
     def __repr__(self) -> str:
         return str(self.schedule)
@@ -23,7 +23,11 @@ class TaskScheduler(ABC):
             self.send_message, 
             'date', 
             run_date=task_time, 
-            args=[task_id, user_id, task_name], 
+            kwargs={
+                "user_id": user_id,
+                "message_text": task_name,
+                "deed_id": task_id
+            },
             id=str(task_id), 
             replace_existing=True
         )
@@ -31,7 +35,7 @@ class TaskScheduler(ABC):
 
     def delete_task(self, task_id: str):
         self.schedule.remove_job(task_id)
-        logger.debug(f"remove job {task_id=}")
+        logger.debug(f"removed job {task_id=}")
 
     def start_scheduling(self):
         self.schedule.start()

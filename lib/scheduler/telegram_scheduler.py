@@ -16,5 +16,5 @@ class TelegramScheduler(TaskScheduler):
                 text=message_text
             )
             logger.debug(f"message for {deed_id=} was sent")
-        except TelegramError:
-            logger.error(f"could not send message for {deed_id=}")
+        except TelegramError as te:
+            logger.error(f"could not send message for {deed_id=} error_text: {te}")
