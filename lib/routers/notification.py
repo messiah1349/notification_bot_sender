@@ -15,4 +15,4 @@ def add_notification(deed_id: int, add_notificattor: models.AddNotificator):
 
 @notification_router.delete('/{deed_id}/', status_code=status.HTTP_200_OK)
 def delete_notification(deed_id: int):
-    telegram_scheduler_object.delete_task(deed_id)
+    telegram_scheduler_object.delete_task(str(deed_id))
